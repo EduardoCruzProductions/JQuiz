@@ -289,6 +289,9 @@
               <Image iconType="3" name="/icones/erase.png"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonLimparActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButtonAdicionar">
           <Properties>
@@ -296,6 +299,9 @@
               <Image iconType="3" name="/icones/plus.png"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonAdicionarActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

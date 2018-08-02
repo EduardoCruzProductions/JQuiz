@@ -83,8 +83,18 @@ public class TelaCadastro extends javax.swing.JFrame {
         buttonGroup.add(jRadioButtonResp3);
 
         jButtonLimpar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/erase.png"))); // NOI18N
+        jButtonLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonLimparActionPerformed(evt);
+            }
+        });
 
         jButtonAdicionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/plus.png"))); // NOI18N
+        jButtonAdicionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAdicionarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelCadastroLayout = new javax.swing.GroupLayout(jPanelCadastro);
         jPanelCadastro.setLayout(jPanelCadastroLayout);
@@ -239,12 +249,22 @@ public class TelaCadastro extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonJogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonJogarActionPerformed
-        System.out.println(jTextAreaQuest.getText());
+        
     }//GEN-LAST:event_jButtonJogarActionPerformed
 
     private void jButtonReiniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReiniciarActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_jButtonReiniciarActionPerformed
+
+    private void jButtonLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimparActionPerformed
+        
+        limparCampos();
+        
+    }//GEN-LAST:event_jButtonLimparActionPerformed
+
+    private void jButtonAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdicionarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonAdicionarActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -305,4 +325,18 @@ public class TelaCadastro extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldResp2;
     private javax.swing.JTextField jTextFieldResp3;
     // End of variables declaration//GEN-END:variables
+    
+    private void limparCampos(){
+        
+        jTextAreaQuest.setText("");
+        jTextFieldResp0.setText("");
+        jTextFieldResp1.setText("");
+        jTextFieldResp2.setText("");
+        jTextFieldResp3.setText("");
+        
+        buttonGroup.clearSelection();
+        
+    }
+
+
 }
