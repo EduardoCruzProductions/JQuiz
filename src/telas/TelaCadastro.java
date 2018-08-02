@@ -1,6 +1,8 @@
 
 package telas;
 
+import javax.swing.JOptionPane;
+
 public class TelaCadastro extends javax.swing.JFrame {
 
 
@@ -263,7 +265,31 @@ public class TelaCadastro extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonLimparActionPerformed
 
     private void jButtonAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdicionarActionPerformed
-        // TODO add your handling code here:
+        
+        String questao = jTextAreaQuest.getText();
+        String resposta0 = jTextFieldResp0.getText();
+        String resposta1 = jTextFieldResp1.getText();
+        String resposta2 = jTextFieldResp2.getText();
+        String resposta3 = jTextFieldResp3.getText();
+        int indexCorreto = getRadioIndexCorreto();
+        
+        if(questao.isEmpty() ||
+                resposta0.isEmpty() ||
+                resposta1.isEmpty() ||
+                resposta2.isEmpty() ||
+                resposta3.isEmpty() ||
+                indexCorreto == -1){
+            
+            JOptionPane.showMessageDialog(null,
+                    "Preencha todos os campos!", "Erro!",
+                    JOptionPane.ERROR_MESSAGE);
+            
+        }else{
+            
+            //metodo adicionar
+            
+        }
+        
     }//GEN-LAST:event_jButtonAdicionarActionPerformed
 
     public static void main(String args[]) {
@@ -338,5 +364,15 @@ public class TelaCadastro extends javax.swing.JFrame {
         
     }
 
+    private int getRadioIndexCorreto() {
+    
+        if(jRadioButtonResp0.isSelected()) return 0;
+        if(jRadioButtonResp1.isSelected()) return 1;
+        if(jRadioButtonResp2.isSelected()) return 2;
+        if(jRadioButtonResp3.isSelected()) return 3;
+    
+        return -1;
+        
+    }
 
 }
