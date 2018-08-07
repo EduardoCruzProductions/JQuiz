@@ -255,6 +255,16 @@ public class TelaCadastro extends javax.swing.JFrame {
 
     private void jButtonJogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonJogarActionPerformed
 
+        if (questoes.size() != 0) {
+            TelaGame tg = new TelaGame(questoes);
+            tg.setVisible(true);
+            this.dispose();
+        }else{
+            JOptionPane.showMessageDialog(null,
+                    "Insira ao menos um registro!", "Erro!",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+
     }//GEN-LAST:event_jButtonJogarActionPerformed
 
     private void jButtonReiniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReiniciarActionPerformed
@@ -262,7 +272,7 @@ public class TelaCadastro extends javax.swing.JFrame {
         int r = JOptionPane.showConfirmDialog(null, "Desejar reiciniar o jogo?",
                 "Confirmação",
                 JOptionPane.YES_NO_OPTION);
-        
+
         if (r == JOptionPane.YES_OPTION) {
 
             questoes.clear();
@@ -270,7 +280,7 @@ public class TelaCadastro extends javax.swing.JFrame {
             jLabelContador.setText("00");
 
         }
-        
+
     }//GEN-LAST:event_jButtonReiniciarActionPerformed
 
     private void jButtonLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimparActionPerformed

@@ -1,11 +1,24 @@
 
 package telas;
 
+import java.util.ArrayList;
+import java.util.List;
+import modelo.Questao;
 
 public class TelaGame extends javax.swing.JFrame {
 
+    private List<Questao> questoes = new ArrayList<>();
+    private int indexQuestaoAtual = 0;
+    private Questao questao;
+    
     public TelaGame() {
         initComponents();
+    }
+    
+    public TelaGame(List<Questao> listQuestoes){
+        initComponents();
+        questoes = listQuestoes;
+        updateTela();
     }
 
     @SuppressWarnings("unchecked")
@@ -25,6 +38,7 @@ public class TelaGame extends javax.swing.JFrame {
         jLabelContador = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("JQuiz");
         setResizable(false);
 
         jTextAreaQuestao.setEditable(false);
@@ -159,4 +173,18 @@ public class TelaGame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextAreaQuestao;
     // End of variables declaration//GEN-END:variables
+
+    private void updateTela(){
+        
+        questao = questoes.get(indexQuestaoAtual);
+        jTextAreaQuestao.setText(questao.getEnunciado());
+        jRadioButtonResposta0.setText(questao.getRespostas().get(0));
+        jRadioButtonResposta1.setText(questao.getRespostas().get(1));
+        jRadioButtonResposta2.setText(questao.getRespostas().get(2));
+        jRadioButtonResposta3.setText(questao.getRespostas().get(3));
+        
+        jLabelContador.setText(String.valueOf(indexQuestaoAtual+1));
+        
+    }
+
 }
