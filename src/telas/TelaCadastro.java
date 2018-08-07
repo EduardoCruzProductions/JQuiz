@@ -1,13 +1,18 @@
 
 package telas;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
+import modelo.Questao;
 
 public class TelaCadastro extends javax.swing.JFrame {
 
+    private List<Questao> questoes = new ArrayList<>();
 
     public TelaCadastro() {
         initComponents();
+        System.out.println("");
     }
 
     @SuppressWarnings("unchecked")
