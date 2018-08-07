@@ -1,4 +1,3 @@
-
 package telas;
 
 import java.util.ArrayList;
@@ -12,7 +11,6 @@ public class TelaCadastro extends javax.swing.JFrame {
 
     public TelaCadastro() {
         initComponents();
-        System.out.println("");
     }
 
     @SuppressWarnings("unchecked")
@@ -256,45 +254,69 @@ public class TelaCadastro extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonJogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonJogarActionPerformed
-        
+
     }//GEN-LAST:event_jButtonJogarActionPerformed
 
     private void jButtonReiniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReiniciarActionPerformed
+
+        int r = JOptionPane.showConfirmDialog(null, "Desejar reiciniar o jogo?",
+                "Confirmação",
+                JOptionPane.YES_NO_OPTION);
+        
+        if (r == JOptionPane.YES_OPTION) {
+
+            questoes.clear();
+            limparCampos();
+            jLabelContador.setText("00");
+
+        }
         
     }//GEN-LAST:event_jButtonReiniciarActionPerformed
 
     private void jButtonLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimparActionPerformed
-        
+
         limparCampos();
-        
+
     }//GEN-LAST:event_jButtonLimparActionPerformed
 
     private void jButtonAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdicionarActionPerformed
-        
+
         String questao = jTextAreaQuest.getText();
         String resposta0 = jTextFieldResp0.getText();
         String resposta1 = jTextFieldResp1.getText();
         String resposta2 = jTextFieldResp2.getText();
         String resposta3 = jTextFieldResp3.getText();
         int indexCorreto = getRadioIndexCorreto();
-        
-        if(questao.isEmpty() ||
-                resposta0.isEmpty() ||
-                resposta1.isEmpty() ||
-                resposta2.isEmpty() ||
-                resposta3.isEmpty() ||
-                indexCorreto == -1){
-            
+
+        if (questao.isEmpty()
+                || resposta0.isEmpty()
+                || resposta1.isEmpty()
+                || resposta2.isEmpty()
+                || resposta3.isEmpty()
+                || indexCorreto == -1) {
+
             JOptionPane.showMessageDialog(null,
                     "Preencha todos os campos!", "Erro!",
                     JOptionPane.ERROR_MESSAGE);
-            
-        }else{
-            
-            //metodo adicionar
-            
+
+        } else {
+
+            Questao q = new Questao();
+            q.setEnunciado(questao);
+            List<String> respostas = new ArrayList<>();
+            respostas.add(resposta0);
+            respostas.add(resposta1);
+            respostas.add(resposta2);
+            respostas.add(resposta3);
+            q.setRespostas(respostas);
+            q.setCorrectIndex(indexCorreto);
+
+            questoes.add(q);
+            limparCampos();
+            updateContador();
+
         }
-        
+
     }//GEN-LAST:event_jButtonAdicionarActionPerformed
 
     public static void main(String args[]) {
@@ -356,28 +378,42 @@ public class TelaCadastro extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldResp2;
     private javax.swing.JTextField jTextFieldResp3;
     // End of variables declaration//GEN-END:variables
-    
-    private void limparCampos(){
-        
+
+    private void limparCampos() {
+
         jTextAreaQuest.setText("");
         jTextFieldResp0.setText("");
         jTextFieldResp1.setText("");
         jTextFieldResp2.setText("");
         jTextFieldResp3.setText("");
-        
+
         buttonGroup.clearSelection();
-        
+
     }
 
     private int getRadioIndexCorreto() {
-    
-        if(jRadioButtonResp0.isSelected()) return 0;
-        if(jRadioButtonResp1.isSelected()) return 1;
-        if(jRadioButtonResp2.isSelected()) return 2;
-        if(jRadioButtonResp3.isSelected()) return 3;
-    
+
+        if (jRadioButtonResp0.isSelected()) {
+            return 0;
+        }
+        if (jRadioButtonResp1.isSelected()) {
+            return 1;
+        }
+        if (jRadioButtonResp2.isSelected()) {
+            return 2;
+        }
+        if (jRadioButtonResp3.isSelected()) {
+            return 3;
+        }
+
         return -1;
-        
+
+    }
+
+    private void updateContador() {
+
+        jLabelContador.setText(String.valueOf(questoes.size()));
+
     }
 
 }
