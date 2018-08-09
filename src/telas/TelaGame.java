@@ -1,8 +1,8 @@
-
 package telas;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import modelo.Questao;
 
 public class TelaGame extends javax.swing.JFrame {
@@ -10,12 +10,13 @@ public class TelaGame extends javax.swing.JFrame {
     private List<Questao> questoes = new ArrayList<>();
     private int indexQuestaoAtual = 0;
     private Questao questao;
-    
+    private int acerto = 0;
+
     public TelaGame() {
         initComponents();
     }
-    
-    public TelaGame(List<Questao> listQuestoes){
+
+    public TelaGame(List<Questao> listQuestoes) {
         initComponents();
         questoes = listQuestoes;
         updateTela();
@@ -33,7 +34,7 @@ public class TelaGame extends javax.swing.JFrame {
         jRadioButtonResposta2 = new javax.swing.JRadioButton();
         jRadioButtonResposta3 = new javax.swing.JRadioButton();
         jButtonNext = new javax.swing.JButton();
-        jButtonConcluir = new javax.swing.JButton();
+        btnConcluir = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabelContador = new javax.swing.JLabel();
 
@@ -66,9 +67,19 @@ public class TelaGame extends javax.swing.JFrame {
         jRadioButtonResposta3.setText("jRadioButton1");
 
         jButtonNext.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/arrow.png"))); // NOI18N
+        jButtonNext.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonNextActionPerformed(evt);
+            }
+        });
 
-        jButtonConcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/correct.png"))); // NOI18N
-        jButtonConcluir.setEnabled(false);
+        btnConcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/correct.png"))); // NOI18N
+        btnConcluir.setEnabled(false);
+        btnConcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConcluirActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 20)); // NOI18N
         jLabel1.setText("Questão");
@@ -96,7 +107,7 @@ public class TelaGame extends javax.swing.JFrame {
                                 .addComponent(jLabelContador)))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButtonConcluir)
+                        .addComponent(btnConcluir)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonNext)))
                 .addContainerGap())
@@ -121,12 +132,47 @@ public class TelaGame extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButtonNext)
-                    .addComponent(jButtonConcluir))
+                    .addComponent(btnConcluir))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNextActionPerformed
+
+        if (getSelectedRadio() != -1) {
+            
+            corrigir(getSelectedRadio());
+            indexQuestaoAtual++;
+            updateTela();
+            
+        } else {
+            
+            JOptionPane.showMessageDialog(null, "Preencha a resposta!",
+                    "Erro!", JOptionPane.ERROR_MESSAGE);
+        
+        }
+        
+    }//GEN-LAST:event_jButtonNextActionPerformed
+
+    private void btnConcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConcluirActionPerformed
+
+        if (getSelectedRadio() != -1) {
+            
+            corrigir(getSelectedRadio());
+            TelaResultado tr = new TelaResultado(null, true,
+            acerto,questoes.size());
+            tr.setVisible(true);
+            
+        } else {
+            
+            JOptionPane.showMessageDialog(null, "Preencha a resposta!",
+                    "Erro!", JOptionPane.ERROR_MESSAGE);
+        
+        }
+        
+    }//GEN-LAST:event_btnConcluirActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -161,8 +207,8 @@ public class TelaGame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnConcluir;
     private javax.swing.ButtonGroup buttonGroupResposta;
-    private javax.swing.JButton jButtonConcluir;
     private javax.swing.JButton jButtonNext;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelContador;
@@ -174,17 +220,54 @@ public class TelaGame extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextAreaQuestao;
     // End of variables declaration//GEN-END:variables
 
-    private void updateTela(){
-        
+    private void corrigir(int resposta) {
+
+        if (resposta == questao.getCorrectIndex()) {
+            acerto++;
+        }
+
+    }
+
+    private int getSelectedRadio() {
+
+        if (jRadioButtonResposta0.isSelected()) {
+            return 0;
+        }
+        if (jRadioButtonResposta1.isSelected()) {
+            return 1;
+        }
+        if (jRadioButtonResposta2.isSelected()) {
+            return 2;
+        }
+        if (jRadioButtonResposta3.isSelected()) {
+            return 3;
+        }
+
+        return -1;
+
+    }
+
+    private void updateTela() {
+
+        if (questoes.size() == indexQuestaoAtual + 1) {
+            btnConcluir.setEnabled(true);
+            jButtonNext.setEnabled(false);
+        } else {
+            btnConcluir.setEnabled(false);
+            jButtonNext.setEnabled(true);
+        }
+
+        buttonGroupResposta.clearSelection();
+
         questao = questoes.get(indexQuestaoAtual);
         jTextAreaQuestao.setText(questao.getEnunciado());
         jRadioButtonResposta0.setText(questao.getRespostas().get(0));
         jRadioButtonResposta1.setText(questao.getRespostas().get(1));
         jRadioButtonResposta2.setText(questao.getRespostas().get(2));
         jRadioButtonResposta3.setText(questao.getRespostas().get(3));
-        
-        jLabelContador.setText(String.valueOf(indexQuestaoAtual+1));
-        
+
+        jLabelContador.setText(String.valueOf(indexQuestaoAtual + 1));
+
     }
 
 }
